@@ -57,24 +57,24 @@ export class AppComponent implements OnInit {
     const circleTexture = new THREE.TextureLoader().load('img/circle.png');
     const mtlLoader = new MTLLoader();
     mtlLoader.load(
-      'models/house_water.mtl',
+      'assets/models/house_water.mtl',
       (materials) => {
         materials.preload();
         const progressBar: any = document.getElementById('progressBar');
         const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.load(
-          'models/house_water.obj',
+          'assets/models/house_water.obj',
           (object) => {
             object.scale.set(0.01, 0.01, 0.01);
             scene.add(object);
             sceneMeshes.push(object);
-            const annotationsDownload = new XMLHttpRequest();
-            annotationsDownload.open('GET', 'assets/data/annotations.json');
-            annotationsDownload.onreadystatechange = function () {
-              if (annotationsDownload.readyState === 4) {
-                console.log(annotationsDownload.responseText);
-                annotations = JSON.parse(annotationsDownload.responseText);
+            // const annotationsDownload = new XMLHttpRequest();
+            // annotationsDownload.open('GET', 'assets/data/annotations.json');
+            // annotationsDownload.onreadystatechange = function () {
+            //   if (annotationsDownload.readyState === 4) {
+                // console.log(annotationsDownload.responseText);
+                // annotations = JSON.parse(annotationsDownload.responseText);
                 const annotationsPanel =
                   document.getElementById('annotationsPanel');
                 const ul = document.createElement('UL');
@@ -122,21 +122,21 @@ export class AppComponent implements OnInit {
                   }
                 });
                 progressBar.style.display = 'none';
-              }
-            };
-            annotationsDownload.send();
-          },
-          (xhr) => {
-            if (xhr.lengthComputable) {
-              let percentComplete = (xhr.loaded / xhr.total) * 100;
-              progressBar.value = percentComplete;
-              progressBar.style.display = 'block';
-            }
-          },
-          (error) => {
-            console.log('An error happened');
-          }
-        );
+          //     }
+          //   };
+          //   annotationsDownload.send();
+          // },
+          // (xhr) => {
+          //   if (xhr.lengthComputable) {
+          //     let percentComplete = (xhr.loaded / xhr.total) * 100;
+          //     progressBar.value = percentComplete;
+          //     progressBar.style.display = 'block';
+          //   }
+          // },
+          // (error) => {
+          //   console.log('An error happened');
+          // }
+        // );
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
